@@ -166,12 +166,14 @@ const BaseFeeInput = () => {
     );
   }, [
     editingInGwei,
+    baseFeeTrend,
     gasFeeEstimates,
     maxBaseFeeGWEI,
     maxPriorityFeePerGas,
     setBaseFeeError,
     setErrorValue,
     setMaxFeePerGas,
+    setFeeTrendsData,
   ]);
 
   return (
@@ -200,7 +202,7 @@ const BaseFeeInput = () => {
       <AdvancedGasFeeInputSubtext
         latest={estimatedBaseFee}
         historical="23-359 GWEI"
-        feeTrend={baseFeeTrend}
+        feeTrend={feeTrends.baseFeeTrend}
       />
     </Box>
   );
