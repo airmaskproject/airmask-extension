@@ -51,6 +51,7 @@ const PriorityFeeInput = () => {
     gasFeeEstimates,
     maxPriorityFeePerGas,
   } = useGasFeeContext();
+  const { priorityFeeTrend } = gasFeeEstimates;
   const [priorityFeeError, setPriorityFeeError] = useState();
 
   const [priorityFee, setPriorityFee] = useState(() => {
@@ -101,7 +102,11 @@ const PriorityFeeInput = () => {
         detailText={`≈ ${priorityFeeInFiat}`}
         numeric
       />
-      <AdvancedGasFeeInputSubtext latest="1-18 GWEI" historical="23-359 GWEI" />
+      <AdvancedGasFeeInputSubtext
+        latest="1-18 GWEI"
+        historical="23-359 GWEI"
+        feeTrend={priorityFeeTrend}
+      />
     </>
   );
 };
