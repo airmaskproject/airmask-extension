@@ -43,10 +43,8 @@ const PriorityFeeInput = () => {
   const t = useI18nContext();
   const advancedGasFeeValues = useSelector(getAdvancedGasFeeValues);
   const {
-    feeTrends,
     setErrorValue,
     setMaxPriorityFeePerGas,
-    setFeeTrendsValue,
   } = useAdvancedGasFeePopoverContext();
   const {
     estimateUsed,
@@ -54,6 +52,7 @@ const PriorityFeeInput = () => {
     maxPriorityFeePerGas,
   } = useGasFeeContext();
   const { priorityFeeTrend } = gasFeeEstimates;
+  const [feeTrend, setFeeTrend] = useState(priorityFeeTrend);
   const [priorityFeeError, setPriorityFeeError] = useState();
 
   const [priorityFee, setPriorityFee] = useState(() => {
@@ -84,15 +83,18 @@ const PriorityFeeInput = () => {
       error === 'editGasMaxPriorityFeeBelowMinimumV2',
     );
     setPriorityFeeError(error);
-    setFeeTrendsValue('priorityFeeTrend', priorityFeeTrend);
+    if (priorityFeeTrend !== 'level' && priorityFeeTrend !== feeTrend) {
+      setFeeTrend(priorityFeeTrend);
+    }
   }, [
+    feeTrend,
     priorityFeeTrend,
     gasFeeEstimates,
     priorityFee,
     setErrorValue,
     setMaxPriorityFeePerGas,
     setPriorityFeeError,
-    setFeeTrendsValue,
+    setFeeTrend,
   ]);
 
   return (
@@ -110,7 +112,7 @@ const PriorityFeeInput = () => {
       <AdvancedGasFeeInputSubtext
         latest="1-18 GWEI"
         historical="23-359 GWEI"
-        feeTrend={feeTrends.priorityFeeTrend}
+        feeTrend={feeTrend}
       />
     </>
   );
