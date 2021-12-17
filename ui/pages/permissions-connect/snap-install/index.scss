@@ -13,8 +13,7 @@
   }
 
   .permissions-connect-permission-list {
-    padding-left: 24px;
-    padding-right: 24px;
+    padding: 0 24px;
   }
 
   .source-code {
@@ -25,7 +24,7 @@
 
     .link {
       color: $primary-blue;
-      margin-left: 4px;
+      margin-inline-start: 4px;
       cursor: pointer;
     }
   }

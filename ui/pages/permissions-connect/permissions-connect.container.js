@@ -65,10 +65,7 @@ const mapStateToProps = (state, ownProps) => {
     }
   }
 
-  const isSnap = Boolean(
-    targetSubjectMetadata &&
-      targetSubjectMetadata.subjectType === SUBJECT_TYPES.SNAP,
-  );
+  const isSnap = targetSubjectMetadata?.subjectType === SUBJECT_TYPES.SNAP;
 
   const accountsWithLabels = getAccountsWithLabels(state);
 
