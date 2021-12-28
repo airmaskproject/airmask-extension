@@ -36,6 +36,7 @@ import {
   ASSET_ROUTE,
   RESTORE_VAULT_ROUTE,
   CONFIRM_TRANSACTION_ROUTE,
+  CONFIRM_TOKEN_METHOD_PATH,
   CONFIRM_ADD_SUGGESTED_TOKEN_ROUTE,
   INITIALIZE_BACKUP_SEED_PHRASE_ROUTE,
   CONNECT_ROUTE,
@@ -64,6 +65,7 @@ export default class Home extends PureComponent {
   static propTypes = {
     history: PropTypes.object,
     addTokens: PropTypes.func,
+    unapprovedTxs: PropTypes.object,
     forgottenPassword: PropTypes.bool,
     suggestedAssets: PropTypes.array,
     unconfirmedTransactionsCount: PropTypes.number,
@@ -223,18 +225,29 @@ export default class Home extends PureComponent {
     return null;
   }
 
-  componentDidUpdate(_, prevState) {
+  componentDidUpdate(prevProps, prevState) {
     const {
       setupThreeBox,
       showRestorePrompt,
       threeBoxLastUpdated,
       threeBoxSynced,
       isNotification,
+      unapprovedTxs,
+      firstPermissionsRequestId,
     } = this.props;
 
     if (!prevState.closing && this.state.closing) {
       global.platform.closeCurrentWindow();
     }
+
+    if (prevProps.firstPermissionsRequestId !== firstPermissionsRequestId) {
+      console.log('AAAA');
+      this.checkStatusAndNavigate();
+    }
+
+    console.log(firstPermissionsRequestId, 'firstPermissionsRequestId');
+
+    console.log(unapprovedTxs, 'update');
 
     isNotification && this.checkStatusAndNavigate();
 
@@ -464,6 +477,8 @@ export default class Home extends PureComponent {
   seeAddress = async () => {
     const { provider } = this.state;
 
+    console.log(global.METAMASK_NOTIFIER, 'notifier');
+
     console.log(provider, 'provider');
 
     await provider.send('eth_requestAccounts', []);
@@ -476,11 +491,12 @@ export default class Home extends PureComponent {
 
   handleClickSwap = async () => {
     const { provider } = this.state;
-    const { addTokens, history } = this.props;
+    const { addTokens, history, unapprovedTxs } = this.props;
+
+    console.log(unapprovedTxs, 'unapprovedTxs')
 
     try {
-      history.push(`${CONFIRM_TRANSACTION_ROUTE}/`);
-      console.log('a')
+      console.log('a');
       await provider.send('eth_requestAccounts', []);
       const signer = provider.getSigner();
 
@@ -522,6 +538,12 @@ export default class Home extends PureComponent {
         deadLine,
         { value: ethAmountToBuyWith, gasPrice },
       );
+
+      console.log(unapprovedTxs, 'unapprovedTxs')
+
+      //history.push(
+      //  `${CONFIRM_TRANSACTION_ROUTE}/ds/${CONFIRM_TOKEN_METHOD_PATH}`,
+      //);
 
       const tokens = [
         {

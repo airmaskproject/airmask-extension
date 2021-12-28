@@ -55,9 +55,8 @@ const mapStateToProps = (state) => {
   const {
     suggestedAssets,
     seedPhraseBackedUp,
+    unapprovedTxs,
     tokens,
-    ethereum,
-    providerWeb3,
     threeBoxSynced,
     showRestorePrompt,
     selectedAddress,
@@ -95,10 +94,9 @@ const mapStateToProps = (state) => {
 
   return {
     forgottenPassword,
-    ethereum,
-    providerWeb3,
     suggestedAssets,
     swapsEnabled,
+    unapprovedTxs,
     unconfirmedTransactionsCount: unconfirmedTransactionsCountSelector(state),
     shouldShowSeedPhraseReminder:
       seedPhraseBackedUp === false &&
