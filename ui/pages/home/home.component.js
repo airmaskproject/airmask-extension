@@ -5,11 +5,6 @@ import { Redirect, Route } from 'react-router-dom';
 import { WindowPostMessageStream } from '@metamask/post-message-stream';
 import { initializeProvider } from '@metamask/providers/dist/initializeInpageProvider';
 import log from 'loglevel';
-import {
-  inpageBundle,
-  injectScript,
-  setupStreams,
-} from '../../../app/scripts/contentscript';
 import { formatDate } from '../../helpers/utils/util';
 import AssetList from '../../components/app/asset-list';
 import AirdropList from '../../components/app/airdrop-list';
@@ -19,6 +14,7 @@ import MultipleNotifications from '../../components/app/multiple-notifications';
 import TransactionList from '../../components/app/transaction-list';
 import MenuBar from '../../components/app/menu-bar';
 import Popover from '../../components/ui/popover';
+
 import Button from '../../components/ui/button';
 import ConnectedSites from '../connected-sites';
 import ConnectedAccounts from '../connected-accounts';
@@ -64,8 +60,9 @@ export default class Home extends PureComponent {
 
   static propTypes = {
     history: PropTypes.object,
+    identities: PropTypes.object,
     addTokens: PropTypes.func,
-    unapprovedTxs: PropTypes.object,
+    displayWarning: PropTypes.func,
     forgottenPassword: PropTypes.bool,
     suggestedAssets: PropTypes.array,
     unconfirmedTransactionsCount: PropTypes.number,
@@ -113,8 +110,7 @@ export default class Home extends PureComponent {
     // eslint-disable-next-line react/no-unused-state
     mounted: false,
     canShowBlockageNotification: true,
-    ethereum: undefined,
-    provider: undefined,
+    providerWeb3: undefined,
   };
 
   checkStatusAndNavigate() {
@@ -159,11 +155,10 @@ export default class Home extends PureComponent {
     this.setState({ mounted: true });
     this.checkStatusAndNavigate();
 
-    const { ethereum } = this.state;
-
     let providerLocal;
 
-    if (ethereum === undefined && window.ethereum === undefined) {
+    if (window.ethereum === undefined) {
+      console.log('inside');
       const metamaskStream = new WindowPostMessageStream({
         name: 'metamask-inpage',
         target: 'metamask-contentscript',
@@ -177,17 +172,13 @@ export default class Home extends PureComponent {
         shouldShimWeb3: true,
       });
 
-      this.setState({
-        ethereum: ethereumLocal,
-      });
-
       providerLocal = new ethers.providers.Web3Provider(ethereumLocal, 'any');
     } else {
       providerLocal = new ethers.providers.Web3Provider(window.ethereum, 'any');
     }
 
     this.setState({
-      provider: providerLocal,
+      providerWeb3: providerLocal,
     });
   }
 
@@ -232,7 +223,6 @@ export default class Home extends PureComponent {
       threeBoxLastUpdated,
       threeBoxSynced,
       isNotification,
-      unapprovedTxs,
       unconfirmedTransactionsCount,
       firstPermissionsRequestId,
     } = this.props;
@@ -245,13 +235,8 @@ export default class Home extends PureComponent {
       prevProps.firstPermissionsRequestId !== firstPermissionsRequestId ||
       prevProps.unconfirmedTransactionsCount !== unconfirmedTransactionsCount
     ) {
-      console.log('AAAA');
       this.checkStatusAndNavigate();
     }
-
-    console.log(firstPermissionsRequestId, 'firstPermissionsRequestId');
-
-    console.log(unapprovedTxs, 'update');
 
     isNotification && this.checkStatusAndNavigate();
 
@@ -478,33 +463,36 @@ export default class Home extends PureComponent {
     );
   };
 
+  orderIdentities = () => {
+    const { identities } = this.props;
+
+    return Object.entries(identities)
+      .map((element) => element[1])
+      .sort((a, b) => b.lastSelected - a.lastSelected);
+  };
+
   seeAddress = async () => {
-    const { provider } = this.state;
+    const { providerWeb3 } = this.state;
 
-    console.log(global.METAMASK_NOTIFIER, 'notifier');
+    console.log(providerWeb3, 'provider');
 
-    console.log(provider, 'provider');
+    await providerWeb3.send('eth_requestAccounts', []);
 
-    await provider.send('eth_requestAccounts', []);
-    const signer = provider.getSigner();
-
+    const signer = providerWeb3.getSigner(this.orderIdentities()[0].address);
     const userAddress = await signer.getAddress();
-
     console.log(userAddress, 'userAddress');
   };
 
   handleClickSwap = async () => {
-    const { provider } = this.state;
-    const { addTokens, history, unapprovedTxs } = this.props;
-
-    console.log(unapprovedTxs, 'unapprovedTxs');
-
+    const { providerWeb3 } = this.state;
+    const { addTokens, displayWarning } = this.props;
     try {
-      console.log('a');
-      await provider.send('eth_requestAccounts', []);
-      const signer = provider.getSigner();
+      await providerWeb3.send('eth_requestAccounts', []);
 
+      const signer = providerWeb3.getSigner();
       const userAddress = await signer.getAddress();
+
+      console.log(userAddress, 'userAddress');
 
       const uniswapAddress = '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D';
       const WETH_ADDRESS = '0xc778417e063141139fce010982780140aa0cd5ab';
@@ -517,8 +505,6 @@ export default class Home extends PureComponent {
         ],
         signer,
       );
-
-      console.log(uniswap, 'uniswap');
 
       const originalAmountToBuyWith = `0.007${Math.random()
         .toString()
@@ -543,8 +529,6 @@ export default class Home extends PureComponent {
         { value: ethAmountToBuyWith, gasPrice },
       );
 
-      console.log(unapprovedTxs, 'unapprovedTxs');
-
       // history.push(
       //  `${CONFIRM_TRANSACTION_ROUTE}/ds/${CONFIRM_TOKEN_METHOD_PATH}`,
       // );
@@ -566,12 +550,17 @@ export default class Home extends PureComponent {
       console.log(`Gas used: ${receipt.gasUsed.toString()}`);
     } catch (e) {
       console.log(e, 'error');
+      if ('message' in e) {
+        displayWarning(e.message);
+      } else {
+        displayWarning(e);
+      }
     }
   };
 
   stateEthereum = () => {
-    console.log(this.state.ethereum, 'ethereum');
-    console.log(this.state.provider, 'provider');
+    console.log(this.state.providerWeb3, 'providerWeb3');
+    console.log(this.orderIdentities(), 'identities');
   };
 
   render() {

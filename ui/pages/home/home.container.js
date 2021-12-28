@@ -35,6 +35,7 @@ import {
   setRecoveryPhraseReminderLastShown,
   setNewNetworkAdded,
   setNewCollectibleAddedMessage,
+  displayWarning,
 } from '../../store/actions';
 import { setThreeBoxLastUpdated, hideWhatsNewPopup } from '../../ducks/app/app';
 import { getWeb3ShimUsageAlertEnabledness } from '../../ducks/metamask/metamask';
@@ -54,8 +55,8 @@ const mapStateToProps = (state) => {
   const { metamask, appState } = state;
   const {
     suggestedAssets,
+    identities,
     seedPhraseBackedUp,
-    unapprovedTxs,
     tokens,
     threeBoxSynced,
     showRestorePrompt,
@@ -96,7 +97,7 @@ const mapStateToProps = (state) => {
     forgottenPassword,
     suggestedAssets,
     swapsEnabled,
-    unapprovedTxs,
+    identities,
     unconfirmedTransactionsCount: unconfirmedTransactionsCountSelector(state),
     shouldShowSeedPhraseReminder:
       seedPhraseBackedUp === false &&
@@ -144,6 +145,7 @@ const mapDispatchToProps = (dispatch) => ({
       }
     });
   },
+  displayWarning: (message) => dispatch(displayWarning(message)),
   restoreFromThreeBox: (address) => dispatch(restoreFromThreeBox(address)),
   setShowRestorePromptToFalse: () => dispatch(setShowRestorePromptToFalse()),
   setConnectedStatusPopoverHasBeenShown: () =>
