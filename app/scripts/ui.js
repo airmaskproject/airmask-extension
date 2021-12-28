@@ -9,6 +9,7 @@ import extension from 'extensionizer';
 
 import Eth from 'ethjs';
 import EthQuery from 'eth-query';
+import { ethers } from 'ethers';
 import StreamProvider from 'web3-stream-provider';
 import log from 'loglevel';
 import launchMetaMaskUi from '../../ui';
@@ -130,6 +131,7 @@ function setupWeb3Connection(connectionStream) {
   global.ethereumProvider = providerStream;
   global.ethQuery = new EthQuery(providerStream);
   global.eth = new Eth(providerStream);
+  global.ethereum3 = new ethers.providers.Web3Provider(providerStream);
 }
 
 /**

@@ -22,7 +22,7 @@ import {
 } from '../../../helpers/constants/design-system';
 import { useI18nContext } from '../../../hooks/useI18nContext';
 
-const AssetList = ({ onClickAsset, data }) => {
+const AssetList = ({ onClickAsset, data, onClickSwap }) => {
   const t = useI18nContext();
   const history = useHistory();
   const selectedAccountBalance = useSelector(
@@ -61,11 +61,13 @@ const AssetList = ({ onClickAsset, data }) => {
   return (
     <>
       <AirdropListItem
-        onClick={() => onClickAsset(nativeCurrency)}
+        // onClick={() => onClickAsset(nativeCurrency)}
         data-testid="wallet-balance"
         primary={
           primaryCurrencyProperties.value ?? secondaryCurrencyProperties.value
         }
+        typeSwap
+        onClickSwap={onClickSwap}
         tokenSymbol={primaryCurrencyProperties.suffix}
         secondary={showFiat ? secondaryCurrencyDisplay : undefined}
         tokenImage={primaryTokenImage}
@@ -76,6 +78,7 @@ const AssetList = ({ onClickAsset, data }) => {
 };
 
 AssetList.propTypes = {
+  onClickSwap: PropTypes.func,
   onClickAsset: PropTypes.func.isRequired,
   data: PropTypes.array,
 };

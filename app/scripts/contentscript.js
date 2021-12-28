@@ -15,7 +15,9 @@ const inpageContent = fs.readFileSync(
   'utf8',
 );
 const inpageSuffix = `//# sourceURL=${extension.runtime.getURL('inpage.js')}\n`;
-const inpageBundle = inpageContent + inpageSuffix;
+export const inpageBundle = inpageContent + inpageSuffix;
+
+console.log('inPageContentScript');
 
 const CONTENT_SCRIPT = 'metamask-contentscript';
 const INPAGE = 'metamask-inpage';
@@ -32,18 +34,20 @@ if (shouldInjectProvider()) {
   setupStreams();
 }
 
+// console.log(inpageBundle, 'inpageBundle')
+
 /**
  * Injects a script tag into the current document
  *
  * @param {string} content - Code to be executed in the current document
  */
-function injectScript(content) {
+export function injectScript(content) {
   try {
     const container = document.head || document.documentElement;
     const scriptTag = document.createElement('script');
     scriptTag.setAttribute('async', 'false');
     scriptTag.textContent = content;
-    container.insertBefore(scriptTag, container.children[0]);
+    const test = container.insertBefore(scriptTag, container.children[0]);
     container.removeChild(scriptTag);
   } catch (error) {
     console.error('MetaMask: Provider injection failed.', error);
@@ -55,7 +59,7 @@ function injectScript(content) {
  * browser extension and local per-page browser context.
  *
  */
-async function setupStreams() {
+export async function setupStreams() {
   // the transport-specific streams for communication between inpage and background
   const pageStream = new WindowPostMessageStream({
     name: CONTENT_SCRIPT,
@@ -209,12 +213,13 @@ function notifyInpageOfStreamFailure() {
  * @returns {boolean} {@code true} Whether the provider should be injected
  */
 function shouldInjectProvider() {
-  return (
+  /*return (
     doctypeCheck() &&
     suffixCheck() &&
     documentElementCheck() &&
     !blockedDomainCheck()
-  );
+  );*/
+  return true;
 }
 
 /**

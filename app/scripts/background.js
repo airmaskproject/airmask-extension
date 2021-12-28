@@ -226,6 +226,8 @@ function setupController(initState, initLangCode) {
     },
   });
 
+  global.ethereum2 = controller;
+
   setupEnsIpfsResolver({
     getCurrentChainId: controller.networkController.getCurrentChainId.bind(
       controller.networkController,

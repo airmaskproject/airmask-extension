@@ -42,6 +42,7 @@ export function _setBackgroundConnection(backgroundConnection) {
   promisifiedBackground = pify(background);
 }
 
+
 export function goHome() {
   return {
     type: actionConstants.GO_HOME,

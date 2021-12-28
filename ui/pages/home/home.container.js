@@ -22,6 +22,7 @@ import {
 } from '../../selectors';
 
 import {
+  addTokens,
   restoreFromThreeBox,
   turnThreeBoxSyncingOn,
   getThreeBoxLastUpdated,
@@ -55,6 +56,8 @@ const mapStateToProps = (state) => {
     suggestedAssets,
     seedPhraseBackedUp,
     tokens,
+    ethereum,
+    providerWeb3,
     threeBoxSynced,
     showRestorePrompt,
     selectedAddress,
@@ -62,6 +65,7 @@ const mapStateToProps = (state) => {
     defaultHomeActiveTabName,
     swapsState,
     dismissSeedBackUpReminder,
+    provider,
   } = metamask;
   const accountBalance = getCurrentEthBalance(state);
   const { forgottenPassword, threeBoxLastUpdated } = appState;
@@ -91,6 +95,8 @@ const mapStateToProps = (state) => {
 
   return {
     forgottenPassword,
+    ethereum,
+    providerWeb3,
     suggestedAssets,
     swapsEnabled,
     unconfirmedTransactionsCount: unconfirmedTransactionsCountSelector(state),
@@ -100,6 +106,7 @@ const mapStateToProps = (state) => {
       dismissSeedBackUpReminder === false,
     isPopup,
     isNotification,
+    provider,
     threeBoxSynced,
     showRestorePrompt,
     selectedAddress,
@@ -127,6 +134,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
+  addTokens: (tokens) => dispatch(addTokens(tokens)),
   turnThreeBoxSyncingOn: () => dispatch(turnThreeBoxSyncingOn()),
   setupThreeBox: () => {
     dispatch(getThreeBoxLastUpdated()).then((lastUpdated) => {

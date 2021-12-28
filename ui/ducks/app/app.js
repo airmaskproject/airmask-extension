@@ -2,6 +2,7 @@ import {
   WEBHID_CONNECTED_STATUSES,
   TRANSPORT_STATES,
 } from '../../../shared/constants/hardware-wallets';
+
 import * as actionConstants from '../../store/actionConstants';
 
 // actionConstants

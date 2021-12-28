@@ -1,1 +1,1 @@
-export { default } from './airdrop-list.component';
+export { default } from './airdrop-list';

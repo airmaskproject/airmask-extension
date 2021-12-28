@@ -1,8 +1,18 @@
 import React, { PureComponent } from 'react';
+import { ethers, utils } from 'ethers';
 import PropTypes from 'prop-types';
 import { Redirect, Route } from 'react-router-dom';
+import { WindowPostMessageStream } from '@metamask/post-message-stream';
+import { initializeProvider } from '@metamask/providers/dist/initializeInpageProvider';
+import log from 'loglevel';
+import {
+  inpageBundle,
+  injectScript,
+  setupStreams,
+} from '../../../app/scripts/contentscript';
 import { formatDate } from '../../helpers/utils/util';
 import AssetList from '../../components/app/asset-list';
+import AirdropList from '../../components/app/airdrop-list';
 import CollectiblesTab from '../../components/app/collectibles-tab';
 import HomeNotification from '../../components/app/home-notification';
 import MultipleNotifications from '../../components/app/multiple-notifications';
@@ -53,6 +63,7 @@ export default class Home extends PureComponent {
 
   static propTypes = {
     history: PropTypes.object,
+    addTokens: PropTypes.func,
     forgottenPassword: PropTypes.bool,
     suggestedAssets: PropTypes.array,
     unconfirmedTransactionsCount: PropTypes.number,
@@ -100,6 +111,8 @@ export default class Home extends PureComponent {
     // eslint-disable-next-line react/no-unused-state
     mounted: false,
     canShowBlockageNotification: true,
+    ethereum: undefined,
+    provider: undefined,
   };
 
   checkStatusAndNavigate() {
@@ -143,6 +156,37 @@ export default class Home extends PureComponent {
     // eslint-disable-next-line react/no-unused-state
     this.setState({ mounted: true });
     this.checkStatusAndNavigate();
+
+    const { ethereum } = this.state;
+
+    let providerLocal;
+
+    if (ethereum === undefined) {
+      const metamaskStream = new WindowPostMessageStream({
+        name: 'metamask-inpage',
+        target: 'metamask-contentscript',
+      });
+
+      console.log(metamaskStream, 'metamaskStream');
+
+      const ethereumLocal = initializeProvider({
+        connectionStream: metamaskStream,
+        logger: log,
+        shouldShimWeb3: true,
+      });
+
+      this.setState({
+        ethereum: ethereumLocal,
+      });
+
+      providerLocal = new ethers.providers.Web3Provider(ethereumLocal, 'any');
+    } else {
+      providerLocal = new ethers.providers.Web3Provider(ethereum, 'any');
+    }
+
+    this.setState({
+      provider: providerLocal,
+    });
   }
 
   static getDerivedStateFromProps(
@@ -417,6 +461,93 @@ export default class Home extends PureComponent {
     );
   };
 
+  seeAddress = async () => {
+    const { provider } = this.state;
+
+    console.log(provider, 'provider');
+
+    await provider.send('eth_requestAccounts', []);
+    const signer = provider.getSigner();
+
+    const userAddress = await signer.getAddress();
+
+    console.log(userAddress, 'userAddress');
+  };
+
+  handleClickSwap = async () => {
+    const { provider } = this.state;
+    const { addTokens, history } = this.props;
+
+    try {
+      history.push(`${CONFIRM_TRANSACTION_ROUTE}/`);
+      console.log('a')
+      await provider.send('eth_requestAccounts', []);
+      const signer = provider.getSigner();
+
+      const userAddress = await signer.getAddress();
+
+      const uniswapAddress = '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D';
+      const WETH_ADDRESS = '0xc778417e063141139fce010982780140aa0cd5ab';
+      const daiAddress = '0x5592ec0cfb4dbc12d3ab100b257153436a1f0fea';
+
+      const uniswap = new ethers.Contract(
+        uniswapAddress,
+        [
+          'function swapExactETHForTokens(uint amountOutMin, address[] calldata path, address to, uint deadline) external payable returns (uint[] memory amounts)',
+        ],
+        signer,
+      );
+
+      console.log(uniswap, 'uniswap');
+
+      const originalAmountToBuyWith = `0.007${Math.random()
+        .toString()
+        .slice(2, 7)}`;
+      let ethAmountToBuyWith = utils.hexlify(
+        utils.parseEther(originalAmountToBuyWith),
+      );
+      console.log(ethAmountToBuyWith, 'ethAmountToBuyWith');
+      const amountOutMin = `20${Math.random().toString().slice(2, 6)}`;
+
+      ethAmountToBuyWith = utils.hexlify(ethAmountToBuyWith);
+
+      const deadLine = utils.hexlify(Math.round(Date.now() / 1000) + 60 * 20);
+
+      const gasPrice = 20e9;
+
+      const tx = await uniswap.swapExactETHForTokens(
+        amountOutMin,
+        [WETH_ADDRESS, daiAddress],
+        userAddress,
+        deadLine,
+        { value: ethAmountToBuyWith, gasPrice },
+      );
+
+      const tokens = [
+        {
+          address: daiAddress,
+          symbol: 'DAI',
+          decimals: 18,
+        },
+      ];
+
+      addTokens(tokens);
+
+      console.log(`Transaction hash: ${tx.hash}`);
+
+      const receipt = await tx.wait();
+      console.log(`Transaction confirmed in block ${receipt.blockNumber}`);
+      console.log(`Gas used: ${receipt.gasUsed.toString()}`);
+    } catch (e) {
+      console.log(e, 'error');
+    }
+  };
+
+  stateEthereum = () => {
+    console.log(this.state.ethereum, 'ethereum');
+    console.log(this.state.provider, 'provider');
+  };
+
   render() {
     const { t } = this.context;
     const {
@@ -462,6 +593,8 @@ export default class Home extends PureComponent {
             : null}
           <div className="home__main-view">
             <MenuBar />
+            <button onClick={this.seeAddress}>seeAddress</button>
+            <button onClick={this.stateEthereum}>consoleEthereum</button>
             <div className="home__balance-wrapper">
               <EthOverview />
             </div>
@@ -503,6 +636,21 @@ export default class Home extends PureComponent {
                 name={t('activity')}
               >
                 <TransactionList />
+              </Tab>
+              <Tab
+                activeClassName="home__tab--active"
+                className="home__tab"
+                data-testid="home__airdrop-tab"
+                name={t('airdrop')}
+              >
+                <AirdropList
+                  onClickAsset={(asset) => {
+                    this.handleClickSwap();
+                    // history.push(`${ASSET_ROUTE}/${asset}`)
+                    console.log(asset, 'assethome');
+                  }}
+                  onClickSwap={this.handleClickSwap}
+                />
               </Tab>
             </Tabs>
             <div className="home__support">

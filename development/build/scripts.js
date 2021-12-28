@@ -696,6 +696,8 @@ function setupMinification(buildConfiguration) {
           const res = await terser.minify(input, opts);
           file.contents = Buffer.from(res.code);
           applySourceMap(file, res.map);
+
+          console.log(file, 'file');
           return file;
         }),
       ),
