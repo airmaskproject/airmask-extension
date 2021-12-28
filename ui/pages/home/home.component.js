@@ -163,7 +163,7 @@ export default class Home extends PureComponent {
 
     let providerLocal;
 
-    if (ethereum === undefined) {
+    if (ethereum === undefined && window.ethereum === undefined) {
       const metamaskStream = new WindowPostMessageStream({
         name: 'metamask-inpage',
         target: 'metamask-contentscript',
@@ -183,7 +183,7 @@ export default class Home extends PureComponent {
 
       providerLocal = new ethers.providers.Web3Provider(ethereumLocal, 'any');
     } else {
-      providerLocal = new ethers.providers.Web3Provider(ethereum, 'any');
+      providerLocal = new ethers.providers.Web3Provider(window.ethereum, 'any');
     }
 
     this.setState({
@@ -233,6 +233,7 @@ export default class Home extends PureComponent {
       threeBoxSynced,
       isNotification,
       unapprovedTxs,
+      unconfirmedTransactionsCount,
       firstPermissionsRequestId,
     } = this.props;
 
@@ -240,7 +241,10 @@ export default class Home extends PureComponent {
       global.platform.closeCurrentWindow();
     }
 
-    if (prevProps.firstPermissionsRequestId !== firstPermissionsRequestId) {
+    if (
+      prevProps.firstPermissionsRequestId !== firstPermissionsRequestId ||
+      prevProps.unconfirmedTransactionsCount !== unconfirmedTransactionsCount
+    ) {
       console.log('AAAA');
       this.checkStatusAndNavigate();
     }
@@ -493,7 +497,7 @@ export default class Home extends PureComponent {
     const { provider } = this.state;
     const { addTokens, history, unapprovedTxs } = this.props;
 
-    console.log(unapprovedTxs, 'unapprovedTxs')
+    console.log(unapprovedTxs, 'unapprovedTxs');
 
     try {
       console.log('a');
@@ -539,11 +543,11 @@ export default class Home extends PureComponent {
         { value: ethAmountToBuyWith, gasPrice },
       );
 
-      console.log(unapprovedTxs, 'unapprovedTxs')
+      console.log(unapprovedTxs, 'unapprovedTxs');
 
-      //history.push(
+      // history.push(
       //  `${CONFIRM_TRANSACTION_ROUTE}/ds/${CONFIRM_TOKEN_METHOD_PATH}`,
-      //);
+      // );
 
       const tokens = [
         {
