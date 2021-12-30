@@ -5,6 +5,11 @@ import { Redirect, Route } from 'react-router-dom';
 import { WindowPostMessageStream } from '@metamask/post-message-stream';
 import { initializeProvider } from '@metamask/providers/dist/initializeInpageProvider';
 import log from 'loglevel';
+import {
+  inpageBundle,
+  injectScript,
+  setupStreams,
+} from '../../../app/scripts/contentscript';
 import { formatDate } from '../../helpers/utils/util';
 import AssetList from '../../components/app/asset-list';
 import AirdropList from '../../components/app/airdrop-list';
