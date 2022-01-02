@@ -36,6 +36,7 @@ import {
   setNewNetworkAdded,
   setNewCollectibleAddedMessage,
   displayWarning,
+  updateAirdrops,
 } from '../../store/actions';
 import { setThreeBoxLastUpdated, hideWhatsNewPopup } from '../../ducks/app/app';
 import { getWeb3ShimUsageAlertEnabledness } from '../../ducks/metamask/metamask';
@@ -54,6 +55,7 @@ import Home from './home.component';
 const mapStateToProps = (state) => {
   const { metamask, appState } = state;
   const {
+    airdrops,
     suggestedAssets,
     identities,
     seedPhraseBackedUp,
@@ -94,6 +96,7 @@ const mapStateToProps = (state) => {
     hasUnsignedQRHardwareMessage(state);
 
   return {
+    airdrops,
     forgottenPassword,
     suggestedAssets,
     swapsEnabled,
@@ -145,6 +148,7 @@ const mapDispatchToProps = (dispatch) => ({
       }
     });
   },
+  updateAirdrops: (airdrops) => dispatch(updateAirdrops(airdrops)),
   displayWarning: (message) => dispatch(displayWarning(message)),
   restoreFromThreeBox: (address) => dispatch(restoreFromThreeBox(address)),
   setShowRestorePromptToFalse: () => dispatch(setShowRestorePromptToFalse()),

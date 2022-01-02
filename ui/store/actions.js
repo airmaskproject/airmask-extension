@@ -33,6 +33,7 @@ import {
   LEDGER_TRANSPORT_TYPES,
   LEDGER_USB_VENDOR_ID,
 } from '../../shared/constants/hardware-wallets';
+import { getNoFinishAirdrops } from '../helpers/utils/airdrops';
 import * as actionConstants from './actionConstants';
 
 let background = null;
@@ -41,7 +42,6 @@ export function _setBackgroundConnection(backgroundConnection) {
   background = backgroundConnection;
   promisifiedBackground = pify(background);
 }
-
 
 export function goHome() {
   return {
@@ -1033,8 +1033,15 @@ export function unlockSucceeded(message) {
   };
 }
 
+export function updateAirdrops(airdrops) {
+  return {
+    type: actionConstants.UPDATE_AIRDROPS,
+    value: airdrops,
+  };
+}
+
 export function updateMetamaskState(newState) {
-  return (dispatch, getState) => {
+  return async (dispatch, getState) => {
     const { metamask: currentState } = getState();
 
     const { currentLocale, selectedAddress, provider } = currentState;

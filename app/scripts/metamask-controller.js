@@ -106,6 +106,8 @@ import {
   unrestrictedMethods,
 } from './controllers/permissions';
 
+
+
 export const METAMASK_CONTROLLER_EVENTS = {
   // Fired after state changes that impact the extension badge (unapproved msg count)
   // The process of updating the badge happens in app/scripts/background.js.
