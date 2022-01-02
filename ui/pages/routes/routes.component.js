@@ -32,11 +32,13 @@ import AppHeader from '../../components/app/app-header';
 import UnlockPage from '../unlock-page';
 import Alerts from '../../components/app/alerts';
 import Asset from '../asset';
+import Airdrop from '../airdrop';
 import OnboardingAppHeader from '../onboarding-flow/onboarding-app-header/onboarding-app-header';
 
 import {
   IMPORT_TOKEN_ROUTE,
   ASSET_ROUTE,
+  AIRDROP_ROUTE,
   CONFIRM_ADD_SUGGESTED_TOKEN_ROUTE,
   CONFIRM_TRANSACTION_ROUTE,
   CONNECT_ROUTE,
@@ -186,6 +188,15 @@ export default class Routes extends Component {
         />
         <Authenticated path={`${ASSET_ROUTE}/:asset/:id`} component={Asset} />
         <Authenticated path={`${ASSET_ROUTE}/:asset/`} component={Asset} />
+        <Authenticated
+          path={`${AIRDROP_ROUTE}/:airdrop/:id`}
+          component={Airdrop}
+        />
+        <Authenticated
+          path={`${AIRDROP_ROUTE}/:airdrop/`}
+          component={Airdrop}
+        />
+
         <Authenticated path={DEFAULT_ROUTE} component={Home} />
       </Switch>
     );

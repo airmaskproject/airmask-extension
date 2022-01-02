@@ -1,0 +1,512 @@
+[
+  {
+    "id": 10,
+    "idUser": 1,
+    "idFileAirdrop": 10,
+    "name": "Get 60$ with AirMask",
+    "type": 1,
+    "action": 5,
+    "announced": false,
+    "site": null,
+    "amount": 1000,
+    "additionalInfo": null,
+    "endDate": null,
+    "createdAt": "2021-11-30T11:05:40.000Z",
+    "updatedAt": "2021-11-30T11:05:40.000Z",
+    "fileAirdrop": {
+      "id": 10,
+      "filepath": "fileSave/airdrop/1638270340030loop-logo.jpeg",
+      "filename": "1638270340030loop-logo.jpeg",
+      "createdAt": "2021-11-30T11:05:40.000Z",
+      "updatedAt": "2021-11-30T11:05:40.000Z"
+    },
+    "user": {
+      "id": 1,
+      "firstName": "Ayal",
+      "lastName": "Haddad",
+      "email": "ayal.h@live.fr",
+      "password": "$2b$10$Ma1jZbNrqWSgAznVhIOcTOnKUbP9LOOKctsizAjJPg/9wfLElvKoG",
+      "isAdmin": true,
+      "createdAt": "2021-11-27T22:54:18.000Z",
+      "updatedAt": "2021-11-27T22:54:18.000Z"
+    },
+    "stepActions": [
+      {
+        "id": 19,
+        "idAirdrop": 10,
+        "step": 1,
+        "description": "Go to the site and create an account",
+        "link": null,
+        "smartContract": null,
+        "createdAt": "2021-11-30T11:05:40.000Z",
+        "updatedAt": "2021-11-30T11:05:40.000Z",
+        "requiredInfos": [
+          {
+            "id": 18,
+            "idStepAction": 19,
+            "type": 5,
+            "title": "Have an Email",
+            "additionalInfo": null,
+            "createdAt": "2021-11-30T11:05:40.000Z",
+            "updatedAt": "2021-11-30T11:05:40.000Z"
+          },
+          {
+            "id": 19,
+            "idStepAction": 19,
+            "type": null,
+            "title": "Have a telegram",
+            "additionalInfo": null,
+            "createdAt": "2021-11-30T11:05:40.000Z",
+            "updatedAt": "2021-11-30T11:05:40.000Z"
+          }
+        ]
+      },
+      {
+        "id": 20,
+        "idAirdrop": 10,
+        "step": 2,
+        "description": "Go to the site and buy a domain",
+        "link": null,
+        "smartContract": null,
+        "createdAt": "2021-11-30T11:05:40.000Z",
+        "updatedAt": "2021-11-30T11:05:40.000Z",
+        "requiredInfos": [
+          {
+            "id": 20,
+            "idStepAction": 20,
+            "type": null,
+            "title": "Have an domain",
+            "additionalInfo": null,
+            "createdAt": "2021-11-30T11:05:40.000Z",
+            "updatedAt": "2021-11-30T11:05:40.000Z"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "idUser": 1,
+    "idFileAirdrop": 6,
+    "name": "Get 10$ with Aave",
+    "type": 3,
+    "action": 2,
+    "announced": true,
+    "site": null,
+    "amount": 500,
+    "additionalInfo": null,
+    "endDate": "2021-11-08T10:06:47.000Z",
+    "createdAt": "2021-11-27T23:04:17.000Z",
+    "updatedAt": "2021-11-27T23:04:17.000Z",
+    "fileAirdrop": {
+      "id": 6,
+      "filepath": "fileSave/airdrop/16380542576182910.png",
+      "filename": "16380542576182910.png",
+      "createdAt": "2021-11-27T23:04:17.000Z",
+      "updatedAt": "2021-11-27T23:04:17.000Z"
+    },
+    "user": {
+      "id": 1,
+      "firstName": "Ayal",
+      "lastName": "Haddad",
+      "email": "ayal.h@live.fr",
+      "password": "$2b$10$Ma1jZbNrqWSgAznVhIOcTOnKUbP9LOOKctsizAjJPg/9wfLElvKoG",
+      "isAdmin": true,
+      "createdAt": "2021-11-27T22:54:18.000Z",
+      "updatedAt": "2021-11-27T22:54:18.000Z"
+    },
+    "stepActions": [
+      {
+        "id": 11,
+        "idAirdrop": 6,
+        "step": 1,
+        "description": "Go to the site and create an account",
+        "link": null,
+        "smartContract": null,
+        "createdAt": "2021-11-27T23:04:17.000Z",
+        "updatedAt": "2021-11-27T23:04:17.000Z",
+        "requiredInfos": [
+          {
+            "id": 6,
+            "idStepAction": 11,
+            "type": 5,
+            "title": "Have an Email",
+            "additionalInfo": null,
+            "createdAt": "2021-11-27T23:04:17.000Z",
+            "updatedAt": "2021-11-27T23:04:17.000Z"
+          },
+          {
+            "id": 7,
+            "idStepAction": 11,
+            "type": null,
+            "title": "Have a telegram",
+            "additionalInfo": null,
+            "createdAt": "2021-11-27T23:04:17.000Z",
+            "updatedAt": "2021-11-27T23:04:17.000Z"
+          }
+        ]
+      },
+      {
+        "id": 12,
+        "idAirdrop": 6,
+        "step": 2,
+        "description": "Go to the site and buy a domain",
+        "link": null,
+        "smartContract": null,
+        "createdAt": "2021-11-27T23:04:17.000Z",
+        "updatedAt": "2021-11-27T23:04:17.000Z",
+        "requiredInfos": [
+          {
+            "id": 8,
+            "idStepAction": 12,
+            "type": null,
+            "title": "Have an domain",
+            "additionalInfo": null,
+            "createdAt": "2021-11-27T23:04:17.000Z",
+            "updatedAt": "2021-11-27T23:04:17.000Z"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "idUser": 1,
+    "idFileAirdrop": 7,
+    "name": "Get 10$ with Aave",
+    "type": 5,
+    "action": 3,
+    "announced": false,
+    "site": null,
+    "amount": 500,
+    "additionalInfo": null,
+    "endDate": "2021-11-29T22:07:06.000Z",
+    "createdAt": "2021-11-27T23:06:09.000Z",
+    "updatedAt": "2021-11-27T23:06:09.000Z",
+    "fileAirdrop": {
+      "id": 7,
+      "filepath": "fileSave/airdrop/16380543697362910.png",
+      "filename": "16380543697362910.png",
+      "createdAt": "2021-11-27T23:06:09.000Z",
+      "updatedAt": "2021-11-27T23:06:09.000Z"
+    },
+    "user": {
+      "id": 1,
+      "firstName": "Ayal",
+      "lastName": "Haddad",
+      "email": "ayal.h@live.fr",
+      "password": "$2b$10$Ma1jZbNrqWSgAznVhIOcTOnKUbP9LOOKctsizAjJPg/9wfLElvKoG",
+      "isAdmin": true,
+      "createdAt": "2021-11-27T22:54:18.000Z",
+      "updatedAt": "2021-11-27T22:54:18.000Z"
+    },
+    "stepActions": [
+      {
+        "id": 13,
+        "idAirdrop": 7,
+        "step": 2,
+        "description": "Go to the site and buy a domain",
+        "link": null,
+        "smartContract": null,
+        "createdAt": "2021-11-27T23:06:09.000Z",
+        "updatedAt": "2021-11-27T23:06:09.000Z",
+        "requiredInfos": [
+          {
+            "id": 9,
+            "idStepAction": 13,
+            "type": null,
+            "title": "Have an domain",
+            "additionalInfo": null,
+            "createdAt": "2021-11-27T23:06:10.000Z",
+            "updatedAt": "2021-11-27T23:06:10.000Z"
+          }
+        ]
+      },
+      {
+        "id": 14,
+        "idAirdrop": 7,
+        "step": 1,
+        "description": "Go to the site and create an account",
+        "link": null,
+        "smartContract": null,
+        "createdAt": "2021-11-27T23:06:09.000Z",
+        "updatedAt": "2021-11-27T23:06:09.000Z",
+        "requiredInfos": [
+          {
+            "id": 10,
+            "idStepAction": 14,
+            "type": null,
+            "title": "Have a telegram",
+            "additionalInfo": null,
+            "createdAt": "2021-11-27T23:06:10.000Z",
+            "updatedAt": "2021-11-27T23:06:10.000Z"
+          },
+          {
+            "id": 11,
+            "idStepAction": 14,
+            "type": 5,
+            "title": "Have an Email",
+            "additionalInfo": null,
+            "createdAt": "2021-11-27T23:06:10.000Z",
+            "updatedAt": "2021-11-27T23:06:10.000Z"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "idUser": 1,
+    "idFileAirdrop": 5,
+    "name": "Get 10$ with Aave",
+    "type": 1,
+    "action": 4,
+    "announced": false,
+    "site": null,
+    "amount": 500,
+    "additionalInfo": null,
+    "endDate": "2021-12-08T10:06:38.000Z",
+    "createdAt": "2021-11-27T23:00:06.000Z",
+    "updatedAt": "2021-11-27T23:00:06.000Z",
+    "fileAirdrop": {
+      "id": 5,
+      "filepath": "fileSave/airdrop/1638054006219alpaca.png",
+      "filename": "1638054006219alpaca.png",
+      "createdAt": "2021-11-27T23:00:06.000Z",
+      "updatedAt": "2021-11-27T23:00:06.000Z"
+    },
+    "user": {
+      "id": 1,
+      "firstName": "Ayal",
+      "lastName": "Haddad",
+      "email": "ayal.h@live.fr",
+      "password": "$2b$10$Ma1jZbNrqWSgAznVhIOcTOnKUbP9LOOKctsizAjJPg/9wfLElvKoG",
+      "isAdmin": true,
+      "createdAt": "2021-11-27T22:54:18.000Z",
+      "updatedAt": "2021-11-27T22:54:18.000Z"
+    },
+    "stepActions": [
+      {
+        "id": 9,
+        "idAirdrop": 5,
+        "step": 1,
+        "description": "Go to the site and create an account",
+        "link": null,
+        "smartContract": null,
+        "createdAt": "2021-11-27T23:00:06.000Z",
+        "updatedAt": "2021-11-27T23:00:06.000Z",
+        "requiredInfos": [
+          {
+            "id": 3,
+            "idStepAction": 9,
+            "type": 5,
+            "title": "Have an Email",
+            "additionalInfo": null,
+            "createdAt": "2021-11-27T23:00:06.000Z",
+            "updatedAt": "2021-11-27T23:00:06.000Z"
+          },
+          {
+            "id": 4,
+            "idStepAction": 9,
+            "type": null,
+            "title": "Have a telegram",
+            "additionalInfo": null,
+            "createdAt": "2021-11-27T23:00:06.000Z",
+            "updatedAt": "2021-11-27T23:00:06.000Z"
+          }
+        ]
+      },
+      {
+        "id": 10,
+        "idAirdrop": 5,
+        "step": 2,
+        "description": "Go to the site and buy a domain",
+        "link": null,
+        "smartContract": null,
+        "createdAt": "2021-11-27T23:00:06.000Z",
+        "updatedAt": "2021-11-27T23:00:06.000Z",
+        "requiredInfos": [
+          {
+            "id": 5,
+            "idStepAction": 10,
+            "type": null,
+            "title": "Have an domain",
+            "additionalInfo": null,
+            "createdAt": "2021-11-27T23:00:06.000Z",
+            "updatedAt": "2021-11-27T23:00:06.000Z"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "idUser": 1,
+    "idFileAirdrop": 9,
+    "name": "Get 10$ with Sand",
+    "type": 4,
+    "action": 2,
+    "announced": true,
+    "site": null,
+    "amount": 700,
+    "additionalInfo": null,
+    "endDate": "2021-12-14T10:06:56.000Z",
+    "createdAt": "2021-11-30T11:05:06.000Z",
+    "updatedAt": "2021-11-30T11:05:06.000Z",
+    "fileAirdrop": {
+      "id": 9,
+      "filepath": "fileSave/airdrop/1638270306673f3c0d5aa-feaf-48b5-953c-30f80399bd1e.jpeg",
+      "filename": "1638270306673f3c0d5aa-feaf-48b5-953c-30f80399bd1e.jpeg",
+      "createdAt": "2021-11-30T11:05:06.000Z",
+      "updatedAt": "2021-11-30T11:05:06.000Z"
+    },
+    "user": {
+      "id": 1,
+      "firstName": "Ayal",
+      "lastName": "Haddad",
+      "email": "ayal.h@live.fr",
+      "password": "$2b$10$Ma1jZbNrqWSgAznVhIOcTOnKUbP9LOOKctsizAjJPg/9wfLElvKoG",
+      "isAdmin": true,
+      "createdAt": "2021-11-27T22:54:18.000Z",
+      "updatedAt": "2021-11-27T22:54:18.000Z"
+    },
+    "stepActions": [
+      {
+        "id": 17,
+        "idAirdrop": 9,
+        "step": 1,
+        "description": "Go to the site and create an account",
+        "link": null,
+        "smartContract": null,
+        "createdAt": "2021-11-30T11:05:06.000Z",
+        "updatedAt": "2021-11-30T11:05:06.000Z",
+        "requiredInfos": [
+          {
+            "id": 15,
+            "idStepAction": 17,
+            "type": 5,
+            "title": "Have an Email",
+            "additionalInfo": null,
+            "createdAt": "2021-11-30T11:05:06.000Z",
+            "updatedAt": "2021-11-30T11:05:06.000Z"
+          },
+          {
+            "id": 16,
+            "idStepAction": 17,
+            "type": null,
+            "title": "Have a telegram",
+            "additionalInfo": null,
+            "createdAt": "2021-11-30T11:05:06.000Z",
+            "updatedAt": "2021-11-30T11:05:06.000Z"
+          }
+        ]
+      },
+      {
+        "id": 18,
+        "idAirdrop": 9,
+        "step": 2,
+        "description": "Go to the site and buy a domain",
+        "link": null,
+        "smartContract": null,
+        "createdAt": "2021-11-30T11:05:06.000Z",
+        "updatedAt": "2021-11-30T11:05:06.000Z",
+        "requiredInfos": [
+          {
+            "id": 17,
+            "idStepAction": 18,
+            "type": null,
+            "title": "Have an domain",
+            "additionalInfo": null,
+            "createdAt": "2021-11-30T11:05:06.000Z",
+            "updatedAt": "2021-11-30T11:05:06.000Z"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "idUser": 1,
+    "idFileAirdrop": 8,
+    "name": "Get 10$ with Aave",
+    "type": 2,
+    "action": 2,
+    "announced": true,
+    "site": null,
+    "amount": 500,
+    "additionalInfo": null,
+    "endDate": "2022-01-13T10:06:52.000Z",
+    "createdAt": "2021-11-27T23:06:49.000Z",
+    "updatedAt": "2021-11-27T23:06:49.000Z",
+    "fileAirdrop": {
+      "id": 8,
+      "filepath": "fileSave/airdrop/16380544095002910.png",
+      "filename": "16380544095002910.png",
+      "createdAt": "2021-11-27T23:06:49.000Z",
+      "updatedAt": "2021-11-27T23:06:49.000Z"
+    },
+    "user": {
+      "id": 1,
+      "firstName": "Ayal",
+      "lastName": "Haddad",
+      "email": "ayal.h@live.fr",
+      "password": "$2b$10$Ma1jZbNrqWSgAznVhIOcTOnKUbP9LOOKctsizAjJPg/9wfLElvKoG",
+      "isAdmin": true,
+      "createdAt": "2021-11-27T22:54:18.000Z",
+      "updatedAt": "2021-11-27T22:54:18.000Z"
+    },
+    "stepActions": [
+      {
+        "id": 15,
+        "idAirdrop": 8,
+        "step": 1,
+        "description": "Go to the site and create an account",
+        "link": null,
+        "smartContract": null,
+        "createdAt": "2021-11-27T23:06:49.000Z",
+        "updatedAt": "2021-11-27T23:06:49.000Z",
+        "requiredInfos": [
+          {
+            "id": 12,
+            "idStepAction": 15,
+            "type": 5,
+            "title": "Have an Email",
+            "additionalInfo": null,
+            "createdAt": "2021-11-27T23:06:49.000Z",
+            "updatedAt": "2021-11-27T23:06:49.000Z"
+          },
+          {
+            "id": 13,
+            "idStepAction": 15,
+            "type": null,
+            "title": "Have a telegram",
+            "additionalInfo": null,
+            "createdAt": "2021-11-27T23:06:49.000Z",
+            "updatedAt": "2021-11-27T23:06:49.000Z"
+          }
+        ]
+      },
+      {
+        "id": 16,
+        "idAirdrop": 8,
+        "step": 2,
+        "description": "Go to the site and buy a domain",
+        "link": null,
+        "smartContract": null,
+        "createdAt": "2021-11-27T23:06:49.000Z",
+        "updatedAt": "2021-11-27T23:06:49.000Z",
+        "requiredInfos": [
+          {
+            "id": 14,
+            "idStepAction": 16,
+            "type": null,
+            "title": "Have an domain",
+            "additionalInfo": null,
+            "createdAt": "2021-11-27T23:06:49.000Z",
+            "updatedAt": "2021-11-27T23:06:49.000Z"
+          }
+        ]
+      }
+    ]
+  }
+]

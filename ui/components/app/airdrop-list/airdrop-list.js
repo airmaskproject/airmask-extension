@@ -11,16 +11,10 @@ import {
   getShouldShowFiat,
   getNativeCurrencyImage,
 } from '../../../selectors';
-import { getNativeCurrency } from '../../../ducks/metamask/metamask';
 import { useCurrencyDisplay } from '../../../hooks/useCurrencyDisplay';
-import Typography from '../../ui/typography/typography';
-import {
-  COLORS,
-  TYPOGRAPHY,
-  FONT_WEIGHT,
-  JUSTIFY_CONTENT,
-} from '../../../helpers/constants/design-system';
 import { useI18nContext } from '../../../hooks/useI18nContext';
+import TokenList from '../token-list';
+
 
 const AssetList = ({ onClickAsset, data, onClickSwap }) => {
   const t = useI18nContext();
@@ -28,7 +22,13 @@ const AssetList = ({ onClickAsset, data, onClickSwap }) => {
   const selectedAccountBalance = useSelector(
     (state) => getCurrentAccountWithSendEtherInfo(state).balance,
   );
-  const nativeCurrency = useSelector(getNativeCurrency);
+  const selectTokenEvent = useMetricEvent({
+    eventOpts: {
+      category: 'Navigation',
+      action: 'Token Menu',
+      name: 'Clicked Token',
+    },
+  });
   const showFiat = useSelector(getShouldShowFiat);
 
   const {
@@ -58,20 +58,28 @@ const AssetList = ({ onClickAsset, data, onClickSwap }) => {
 
   const primaryTokenImage = useSelector(getNativeCurrencyImage);
 
+  console.log(data)
+
   return (
     <>
       <AirdropListItem
-        // onClick={() => onClickAsset(nativeCurrency)}
+        onClick={() => onClickAsset(nativeCurrency)}
         data-testid="wallet-balance"
         primary={
           primaryCurrencyProperties.value ?? secondaryCurrencyProperties.value
         }
         typeSwap
-        onClickSwap={onClickSwap}
+        // onClickSwap={onClickSwap}
         tokenSymbol={primaryCurrencyProperties.suffix}
         secondary={showFiat ? secondaryCurrencyDisplay : undefined}
         tokenImage={primaryTokenImage}
         identiconBorder
+      />
+      <TokenList
+        onTokenClick={(tokenAddress) => {
+          onClickAsset(tokenAddress);
+          selectTokenEvent();
+        }}
       />
     </>
   );
@@ -80,7 +88,7 @@ const AssetList = ({ onClickAsset, data, onClickSwap }) => {
 AssetList.propTypes = {
   onClickSwap: PropTypes.func,
   onClickAsset: PropTypes.func.isRequired,
-  data: PropTypes.array,
+  data: PropTypes.any,
 };
 
 export default AssetList;

@@ -200,6 +200,12 @@
   "airdrop": {
     "message": "Airdrop"
   },
+  "airdropOptions": {
+    "message": "Airdrop options"
+  },
+  "airdrops": {
+    "message": "Airdrops"
+  },
   "alertDisableTooltip": {
     "message": "This can be changed in \"Settings > Alerts\""
   },
@@ -358,6 +364,10 @@
   "blockExplorerAccountAction": {
     "message": "Account",
     "description": "This is used with viewOnEtherscan and viewInExplorer e.g View Account in Explorer"
+  },
+  "blockExplorerAirdropAction": {
+    "message": "Airdrop",
+    "description": "This is used with viewOnEtherscan and viewInExplorer e.g View Airdrop in Explorer"
   },
   "blockExplorerAssetAction": {
     "message": "Asset",

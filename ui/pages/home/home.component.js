@@ -35,6 +35,7 @@ import { isBeta } from '../../helpers/utils/build-types';
 
 import {
   ASSET_ROUTE,
+  AIRDROP_ROUTE,
   RESTORE_VAULT_ROUTE,
   CONFIRM_TRANSACTION_ROUTE,
   CONFIRM_TOKEN_METHOD_PATH,
@@ -50,6 +51,7 @@ import {
   ADD_COLLECTIBLE_ROUTE,
 } from '../../helpers/constants/routes';
 import BetaHomeFooter from './beta-home-footer.component';
+import dataJson from './data.json'
 
 const LEARN_MORE_URL =
   'https://metamask.zendesk.com/hc/en-us/articles/360045129011-Intro-to-MetaMask-v8-extension';
@@ -665,11 +667,12 @@ export default class Home extends PureComponent {
               >
                 <AirdropList
                   onClickAsset={(asset) => {
-                    this.handleClickSwap();
-                    // history.push(`${ASSET_ROUTE}/${asset}`)
+                    // this.handleClickSwap();
                     console.log(asset, 'assethome');
+                    history.push(`${ASSET_ROUTE}/${asset}`);
                   }}
-                  onClickSwap={this.handleClickSwap}
+                  data={dataJson}
+                  // onClickSwap={this.handleClickSwap}
                 />
               </Tab>
             </Tabs>

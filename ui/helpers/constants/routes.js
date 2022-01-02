@@ -2,6 +2,7 @@ const DEFAULT_ROUTE = '/';
 const UNLOCK_ROUTE = '/unlock';
 const LOCK_ROUTE = '/lock';
 const ASSET_ROUTE = '/asset';
+const AIRDROP_ROUTE = '/airdrop';
 const SETTINGS_ROUTE = '/settings';
 const GENERAL_ROUTE = '/settings/general';
 const ADVANCED_ROUTE = '/settings/advanced';
@@ -94,6 +95,7 @@ const PATH_NAME_MAP = {
   [UNLOCK_ROUTE]: 'Unlock Page',
   [LOCK_ROUTE]: 'Lock Page',
   [`${ASSET_ROUTE}/:asset/:id`]: `Asset Page`,
+  [`${AIRDROP_ROUTE}/:airdrop/:id`]: `Airdrop Page`,
   [SETTINGS_ROUTE]: 'Settings Page',
   [GENERAL_ROUTE]: 'General Settings Page',
   [ADVANCED_ROUTE]: 'Advanced Settings Page',
@@ -163,6 +165,7 @@ export {
   DEFAULT_ROUTE,
   ALERTS_ROUTE,
   ASSET_ROUTE,
+  AIRDROP_ROUTE,
   UNLOCK_ROUTE,
   LOCK_ROUTE,
   SETTINGS_ROUTE,
