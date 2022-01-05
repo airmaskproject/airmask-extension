@@ -12,11 +12,12 @@ import {
   getNativeCurrencyImage,
 } from '../../../selectors';
 import { useCurrencyDisplay } from '../../../hooks/useCurrencyDisplay';
+import { getNativeCurrency } from '../../../ducks/metamask/metamask';
 import { useI18nContext } from '../../../hooks/useI18nContext';
 import TokenList from '../token-list';
 
 
-const AssetList = ({ onClickAsset, data, onClickSwap }) => {
+const AirdropList = ({ onClickAsset, infoProps, infoState }) => {
   const t = useI18nContext();
   const history = useHistory();
   const selectedAccountBalance = useSelector(
@@ -30,6 +31,7 @@ const AssetList = ({ onClickAsset, data, onClickSwap }) => {
     },
   });
   const showFiat = useSelector(getShouldShowFiat);
+  const nativeCurrency = useSelector(getNativeCurrency);
 
   const {
     currency: primaryCurrency,
@@ -58,8 +60,6 @@ const AssetList = ({ onClickAsset, data, onClickSwap }) => {
 
   const primaryTokenImage = useSelector(getNativeCurrencyImage);
 
-  console.log(data)
-
   return (
     <>
       <AirdropListItem
@@ -69,7 +69,8 @@ const AssetList = ({ onClickAsset, data, onClickSwap }) => {
           primaryCurrencyProperties.value ?? secondaryCurrencyProperties.value
         }
         typeSwap
-        // onClickSwap={onClickSwap}
+        infoProps={infoProps}
+        infoState={infoState}
         tokenSymbol={primaryCurrencyProperties.suffix}
         secondary={showFiat ? secondaryCurrencyDisplay : undefined}
         tokenImage={primaryTokenImage}
@@ -85,10 +86,10 @@ const AssetList = ({ onClickAsset, data, onClickSwap }) => {
   );
 };
 
-AssetList.propTypes = {
+AirdropList.propTypes = {
   onClickSwap: PropTypes.func,
   onClickAsset: PropTypes.func.isRequired,
   data: PropTypes.any,
 };
 
-export default AssetList;
+export default AirdropList;

@@ -23,6 +23,8 @@ import {
 import { SEND_ROUTE } from '../../../helpers/constants/routes';
 import { SEVERITIES } from '../../../helpers/constants/design-system';
 
+import handleClickSwap from '../../../pages/home/function-Ayal';
+
 const AirdropListItem = ({
   className,
   'data-testid': dataTestId,
@@ -39,6 +41,8 @@ const AirdropListItem = ({
   secondary,
   identiconBorder,
   isERC721,
+  infoProps,
+  infoState,
 }) => {
   const t = useI18nContext();
   const dispatch = useDispatch();
@@ -51,18 +55,6 @@ const AirdropListItem = ({
     },
   });
 
-  // console.log(className);
-  // console.log(iconClassName);
-  // console.log(onClick);
-  // console.log(tokenAddress);
-  // console.log(tokenSymbol);
-  // console.log(tokenDecimals);
-  // console.log(tokenImage);
-  // console.log(warning);
-  // console.log(primary);
-  // console.log(secondary);
-  // console.log(identiconBorder);
-  // console.log(isERC721);
   const titleIcon = warning ? (
     <Tooltip
       wrapperClassName="airdrop-list-item__warning-tooltip"
@@ -81,43 +73,6 @@ const AirdropListItem = ({
     </>
   ) : null;
 
-  // const sendTokenButton = useMemo(() => {
-  //   if (tokenAddress === null || tokenAddress === undefined) {
-  //     return null;
-  //   }
-  //   return (
-  //     <Button
-  //       type="link"
-  //       className="airdrop-list-item__send-token-button"
-  //       onClick={(e) => {
-  //         e.stopPropagation();
-  //         sendTokenEvent();
-  //         dispatch(
-  //           updateSendAsset({
-  //             type: ASSET_TYPES.TOKEN,
-  //             details: {
-  //               address: tokenAddress,
-  //               decimals: tokenDecimals,
-  //               symbol: tokenSymbol,
-  //             },
-  //           }),
-  //         ).then(() => {
-  //           history.push(SEND_ROUTE);
-  //         });
-  //       }}
-  //     >
-  //       {t('sendSpecifiedTokens', [tokenSymbol])}
-  //     </Button>
-  //   );
-  // }, [
-  //   tokenSymbol,
-  //   sendTokenEvent,
-  //   tokenAddress,
-  //   tokenDecimals,
-  //   history,
-  //   t,
-  //   dispatch,
-  // ]);
 
   return (
     <ListItem
@@ -157,7 +112,7 @@ const AirdropListItem = ({
             className="eth-overview__button"
             disabled={false}
             Icon={SwapIcon}
-            onClick={onClickSwap}
+            onClick={() => handleClickSwap(infoProps, infoState)}
             label="Airdrop Uniswap"
             tooltipRender={(contents) => (
               <Tooltip
