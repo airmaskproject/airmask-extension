@@ -32,6 +32,7 @@ import Typography from '../../components/ui/typography/typography';
 import { TYPOGRAPHY, FONT_WEIGHT } from '../../helpers/constants/design-system';
 
 import { isBeta } from '../../helpers/utils/build-types';
+import { getNoFinishAirdrops } from '../../helpers/utils/airdrops';
 
 import {
   ASSET_ROUTE,
@@ -67,6 +68,7 @@ export default class Home extends PureComponent {
   };
 
   static propTypes = {
+    updateAirdrops: PropTypes.func,
     history: PropTypes.object,
     identities: PropTypes.object,
     addTokens: PropTypes.func,
@@ -159,34 +161,43 @@ export default class Home extends PureComponent {
   }
 
   componentDidMount() {
+    const { updateAirdrops, airdrops } = this.props;
     // eslint-disable-next-line react/no-unused-state
     this.setState({ mounted: true });
     this.checkStatusAndNavigate();
 
     let providerLocal;
 
-    if (window.ethereum === undefined) {
-      console.log('inside');
-      const metamaskStream = new WindowPostMessageStream({
-        name: 'metamask-inpage',
-        target: 'metamask-contentscript',
+    getNoFinishAirdrops().then((res) => {
+      console.log(airdrops, 'airdrops')
+      if (airdrops !== res) updateAirdrops(res);
+      console.log(res, 'res');
+      if (window.ethereum === undefined) {
+        console.log('inside');
+        const metamaskStream = new WindowPostMessageStream({
+          name: 'metamask-inpage',
+          target: 'metamask-contentscript',
+        });
+
+        console.log(metamaskStream, 'metamaskStream');
+
+        const ethereumLocal = initializeProvider({
+          connectionStream: metamaskStream,
+          logger: log,
+          shouldShimWeb3: true,
+        });
+
+        providerLocal = new ethers.providers.Web3Provider(ethereumLocal, 'any');
+      } else {
+        providerLocal = new ethers.providers.Web3Provider(
+          window.ethereum,
+          'any',
+        );
+      }
+
+      this.setState({
+        providerWeb3: providerLocal,
       });
-
-      console.log(metamaskStream, 'metamaskStream');
-
-      const ethereumLocal = initializeProvider({
-        connectionStream: metamaskStream,
-        logger: log,
-        shouldShimWeb3: true,
-      });
-
-      providerLocal = new ethers.providers.Web3Provider(ethereumLocal, 'any');
-    } else {
-      providerLocal = new ethers.providers.Web3Provider(window.ethereum, 'any');
-    }
-
-    this.setState({
-      providerWeb3: providerLocal,
     });
   }
 

@@ -16,6 +16,7 @@ import { KEYRING_TYPES } from '../../../shared/constants/hardware-wallets';
 
 export default function reduceMetamask(state = {}, action) {
   const metamaskState = {
+    airdrops: [],
     isInitialized: false,
     isUnlocked: false,
     isAccountMenuOpen: false,
@@ -194,6 +195,12 @@ export default function reduceMetamask(state = {}, action) {
         nextNonce: action.value,
       };
     }
+
+    case actionConstants.UPDATE_AIRDROPS:
+      return {
+        ...metamaskState,
+        airdrops: action.value,
+      };
 
     default:
       return metamaskState;

@@ -366,7 +366,6 @@ export default function reduceApp(state = {}, action) {
         ...appState,
         ledgerTransportStatus: action.value,
       };
-
     default:
       return appState;
   }
